@@ -1,15 +1,22 @@
-const React = require('react');
+import React from 'react'
+import Pet from './Pet'
 
-const Pet = require('./Pet');
+export default class PetBrowser extends React.Component {
+  allPets() {
+    return this.props.pets.map((pet)=> {
+      return <Pet pet={pet} onAdoptPet={this.props.onAdoptPet} isAdopted={this.adopted(pet)} />
+    })
+  }
 
-class PetBrowser extends React.Component {
+  adopted(pet) {
+    return this.props.adoptedPets.includes(pet.id)
+  }
+
   render() {
     return (
       <div className="ui cards">
-        <code>&lt;Pet /&gt;</code> &nbsp; components should go here
+        { this.allPets() }
       </div>
-    );
+    )
   }
 }
-
-module.exports = PetBrowser;
